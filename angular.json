@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "few200"
+  "defaultProject": "few200",
+  "cli": {
+    "analytics": "9159ad12-f4a7-4755-b6ce-25bc542fc2ee"
+  }
 }
