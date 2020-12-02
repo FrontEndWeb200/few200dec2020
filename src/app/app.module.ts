@@ -15,6 +15,9 @@ import { NavComponent } from './components/nav/nav.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './reducers';
+import { CountByComponent } from './components/count-by/count-by.component';
+import { EffectsModule } from '@ngrx/effects';
+import { CounterEffects } from './effects/counter.effects';
 
 @NgModule({
   declarations: [
@@ -25,14 +28,16 @@ import { reducers } from './reducers';
     GiftCountComponent,
     DashboardComponent,
     CounterComponent,
-    NavComponent
+    NavComponent,
+    CountByComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     StoreModule.forRoot(reducers),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([CounterEffects])
   ],
   providers: [GiftDataService],
   bootstrap: [AppComponent]

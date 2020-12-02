@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState } from 'src/app/reducers';
+import { AppState, selectCounterCount, selectResetDisabled } from 'src/app/reducers';
+import * as actions from '../../actions/counter.actions';
 
 @Component({
   selector: 'app-counter',
@@ -11,22 +12,30 @@ import { AppState } from 'src/app/reducers';
 export class CounterComponent implements OnInit {
 
   count$!: Observable<number>;
+  resetDisabled$!: Observable<boolean>;
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    this.count$ = this.store.select(s => s.counter.count);
+    this.count$ = this.store
+      .pipe(
+        select(selectCounterCount)
+      );
+    this.resetDisabled$ = this.store
+      .pipe(
+        select(selectResetDisabled)
+      );
   }
 
   increment(): void {
-    this.store.dispatch({ type: 'increment' });
+    this.store.dispatch(actions.countIncremented());
   }
 
   decrement(): void {
-    this.store.dispatch({ type: 'decrement' });
+    this.store.dispatch(actions.countDecremented());
   }
 
   reset(): void {
-    this.store.dispatch({ type: 'reset' });
+    this.store.dispatch(actions.countReset());
   }
 
 
