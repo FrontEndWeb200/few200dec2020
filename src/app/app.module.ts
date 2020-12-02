@@ -12,6 +12,9 @@ import { GiftCountComponent } from './components/gift-count/gift-count.component
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { NavComponent } from './components/nav/nav.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import { NavComponent } from './components/nav/nav.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [GiftDataService],
   bootstrap: [AppComponent]
