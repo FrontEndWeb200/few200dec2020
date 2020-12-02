@@ -7,20 +7,29 @@ import { GiftEntryComponent } from './components/gift-entry/gift-entry.component
 import { GiftListComponent } from './components/gift-list/gift-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GiftGivingComponent } from './components/gift-giving/gift-giving.component';
+import { GiftDataService } from './services/gift-data.service';
+import { GiftCountComponent } from './components/gift-count/gift-count.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CounterComponent } from './components/counter/counter.component';
+import { NavComponent } from './components/nav/nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GiftEntryComponent,
     GiftListComponent,
-    GiftGivingComponent
+    GiftGivingComponent,
+    GiftCountComponent,
+    DashboardComponent,
+    CounterComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [GiftDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

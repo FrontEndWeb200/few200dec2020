@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GiftItem } from 'src/app/models';
+import { GiftDataService } from 'src/app/services/gift-data.service';
 
 @Component({
   selector: 'app-gift-giving',
@@ -8,13 +10,15 @@ import { GiftItem } from 'src/app/models';
 })
 export class GiftGivingComponent implements OnInit {
 
-  data: GiftItem[] = [
-    { for: 'Amy', holiday: 'Christmas', suggestions: 'Books and Movies' },
-    { for: 'Sean', holiday: 'Kwanzaa', suggestions: 'Meat things' }
-  ];
-  constructor() { }
+  data$!: Observable<GiftItem[]>;
+  constructor(private service: GiftDataService) { }
 
   ngOnInit(): void {
+    this.data$ = this.service.getGiftData();
+  }
+
+  onItemAdded(item: GiftItem): void {
+    this.service.addItem(item);
   }
 
 }

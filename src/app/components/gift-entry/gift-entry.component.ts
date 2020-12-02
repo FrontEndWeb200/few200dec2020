@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { GiftItem } from 'src/app/models';
+
+
 
 @Component({
   selector: 'app-gift-entry',
@@ -10,6 +13,7 @@ export class GiftEntryComponent implements OnInit {
 
   hasErrors = false;
   form!: FormGroup;
+  @Output() itemAdded = new EventEmitter<GiftItem>();
   constructor(private formBuilder: FormBuilder) {
 
   }
@@ -31,7 +35,13 @@ export class GiftEntryComponent implements OnInit {
       this.hasErrors = true;
     } else {
       this.hasErrors = false;
-      console.log(this.form.value);
+      // tell our parent (container) something happened.
+      this.itemAdded.emit({
+        for: this.for.value,
+        holiday: this.holiday.value,
+        suggestions: this.suggestions.value
+      });
+
       this.form.reset();
       elementToReceiveTheFoci.focus();
     }
