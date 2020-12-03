@@ -7,6 +7,8 @@ import { GiftListComponent } from './components/gift-list/gift-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GiftFeatureComponent } from './gift-feature.component';
 import { GiftDataService } from './services/gift-data.service';
+import { StoreModule } from '@ngrx/store';
+import { featureName, reducers } from './reducers';
 
 
 
@@ -20,7 +22,8 @@ import { GiftDataService } from './services/gift-data.service';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature(featureName, reducers)
   ],
   exports: [
     GiftFeatureComponent
