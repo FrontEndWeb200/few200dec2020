@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const countIncremented = createAction(
   '[app counter] count incremented'
+  // [module component] some unique name in that
 );
 
 export const countDecremented = createAction(

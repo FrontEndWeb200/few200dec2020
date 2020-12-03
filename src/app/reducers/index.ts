@@ -1,11 +1,11 @@
-import { createSelector } from '@ngrx/store';
+import { ActionReducerMap, createSelector } from '@ngrx/store';
 import * as fromCounter from './counter.reducer';
 
 export interface AppState {
   counter: fromCounter.CounterState;
 }
 
-export const reducers = {
+export const reducers: ActionReducerMap<AppState> = {
   counter: fromCounter.reducer
 };
 
@@ -27,12 +27,12 @@ export const selectCounterCount = createSelector(
 );
 
 export const selectResetDisabled = createSelector(
-  selectCounterCount,
+  selectCounterCount, // 0
   c => c === 0
 );
 
 
 export const selectCountingBy = createSelector(
-  selectCounterBranch,
+  selectCounterBranch, // => { count: 9, by: 1}
   b => b.by
 );

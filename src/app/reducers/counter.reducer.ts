@@ -19,6 +19,7 @@ const reducerFunction = createReducer(
   on(actions.countBySet, (s, a) => ({ ...s, by: a.by }))
 );
 
+// reducer(undefined, { type: '@ngrx/store/init'})
 export function reducer(state: CounterState = initialState, action: Action): CounterState {
   return reducerFunction(state, action);
 }
