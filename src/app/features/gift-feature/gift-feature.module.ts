@@ -9,7 +9,10 @@ import { GiftFeatureComponent } from './gift-feature.component';
 import { GiftDataService } from './services/gift-data.service';
 import { StoreModule } from '@ngrx/store';
 import { featureName, reducers } from './reducers';
-
+import { EffectsModule } from '@ngrx/effects';
+import { GiftAppEffects } from './effects/gift-app.effects';
+import { HttpClientModule } from '@angular/common/http';
+import { GiftEffects } from './effects/gift.effects';
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import { featureName, reducers } from './reducers';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    StoreModule.forFeature(featureName, reducers)
+    StoreModule.forFeature(featureName, reducers),
+    EffectsModule.forFeature([GiftAppEffects, GiftEffects]),
+    HttpClientModule
   ],
   exports: [
     GiftFeatureComponent

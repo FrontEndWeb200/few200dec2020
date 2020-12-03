@@ -1,35 +1,32 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { GiftItem } from '../models';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { GiftCreate, GiftItem } from '../models';
 import { map } from 'rxjs/operators';
-
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment'; // ONLY IMPORT THIS ONE EVER EVER EVER
+import { GiftIdeaEntity } from '../reducers/gift-ideas.reducer';
+@Injectable()
 export class GiftDataService {
 
-  private data: GiftItem[] = [
-    { for: 'Henry', holiday: 'Christmas', suggestions: 'XBox Games' },
-    { for: 'Violet', holiday: 'Christmas', suggestions: 'Wigs and Makup' }
-  ];
 
-  private subject = new BehaviorSubject<GiftItem[]>(this.data);
+  readonly baseUrl = environment.giftApiUrl;
 
+  constructor(private client: HttpClient) { }
   getCountOfGiftsToBuy(): Observable<number> {
-    return this.subject
-      .pipe(
-        map(items => items.length) // GiftItem[] => Number
-      );
-
+    return of(13); // fake!
   }
 
 
   // a way to get the data.
-  getGiftData(): Observable<GiftItem[]> {
-    // call the API and get the data...
-    return this.subject.asObservable();
+  getGiftData(): Observable<GiftIdeaEntity[]> {
+    return this.client.get<{ data: GiftIdeaEntity[] }>(this.baseUrl + 'gifts')
+      .pipe(
+        map(response => response.data)
+      );
   }
   // a way to add an item
-  addItem(giftItem: GiftItem): void {
-    // in a real app, call the API, add it.. wait for it to come back and then...
-    this.data = [giftItem, ...this.data];
-    this.subject.next(this.data); // Hey all you subscribers! The new version of the data is available!
+  addItem(giftItem: GiftCreate): Observable<GiftIdeaEntity> {
+    return this.client.post<GiftIdeaEntity>(this.baseUrl + 'gifts', giftItem);
   }
   // a way to get a summary (how many gifts do we have to buy yet?)
 }
